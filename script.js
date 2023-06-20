@@ -1,121 +1,61 @@
-const balance = document.getElementById('balance');
-const show_credit = document.getElementById('show_credit');
-const show_debit = document.getElementById('show_debit');
-const list = document.getElementById('list');
+const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
+const retirementSavings = parseFloat(document.getElementById('retirementSavings').value);
+const retirementAge = parseFloat(document.getElementById('retirementAge').value);
+const investmentYears = parseFloat(document.getElementById('investmentYears').value);
+const has401kPlan = document.getElementById('401kPlan').checked;
+const currentInvestments = document.getElementById('currentInvestments').value;
+const secondaryIncome = document.getElementById('secondaryIncome').value;
+const numberOfChildren = parseFloat(document.getElementById('numberOfChildren').value);
+const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
 
-setCookie("balance", Number(getCookie("credit")) - Number(getCookie("debit")), 356);
-show_credit.innerHTML = "Rs. " + getCookie("credit");
-show_debit.innerHTML = "Rs. " + getCookie("debit");
-balance.innerHTML = "Rs. " + getCookie("balance");
-addTransactionDOM();
-document.getElementById('form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const key = document.getElementById("exp").value;
-  const value = document.getElementById("amount").value;
-  const text = document.getElementById("text").value.trim();
+const totalSavings = currentSavings + (monthlyIncome * 12 * investmentYears);
+const totalExpenses = monthlyExpenses * 12 * investmentYears;
+const totalAdditionalIncome = numberOfChildren * 1000 + (secondaryIncome ? parseFloat(secondaryIncome) : 0);
 
-  if (value == "") { alert('Enter Amount'); }
-  else {
-    if (getCookie("no_of_transactions") == '') {
-      setCookie("no_of_transactions", 1, 365);
-    }
+const netInvestmentAmount = totalSavings - totalExpenses - totalAdditionalIncome;
+const monthlyInvestment = netInvestmentAmount / (investmentYears * 12);
+const retirementMonthlyIncome = retirementSavings / ((retirementAge - investmentYears) * 12);
 
-    if (key == "debit") {
-      checkCookie("debit", value);
-      setCookie(getCookie("no_of_transactions"), text + " " + " "+" -"+ value, 365);
-    }
-    else if (key == "credit") {
-      checkCookie("credit", value);
-      setCookie(getCookie("no_of_transactions"), text + " " +" "+ " +" + value, 365);
-    }
-    else { return ""; }
-    setCookie("no_of_transactions", Number(getCookie("no_of_transactions")) + 1,365);
-  }
-  setCookie("balance", Number(getCookie("credit")) - Number(getCookie("debit")), 356);
-  myChart.data.datasets.data === Object.values({ 'debit': Number(getCookie("debit")), 'credit': Number(getCookie("credit")) });
-  myChart.update();
-  console.log("cookies present = " + document.cookie); 
-  window.location.reload();  
-})
-
-// Add transactions to DOM list
-function addTransactionDOM() {
-  console.log("In add transactions");
-  
-  for (let i = Number(getCookie('no_of_transactions')) -1; i >0; i--) 
-  {
-    const item = document.createElement('li');
-    transaction_detail = getCookie(i);
-    item.innerText = transaction_detail;
-    list.appendChild(item);
-  }
-  show_credit.innerHTML = "Rs. " + getCookie("credit");
-  show_debit.innerHTML = "Rs. " + getCookie("debit");
-  balance.innerHTML = "Rs. " + getCookie("balance");
+const labels = [];
+const data = [];
+for (let i = investmentYears; i <= retirementAge; i++) {
+  labels.push(i);
+  data.push(retirementMonthlyIncome);
 }
 
-//checking if a cookie with same name created or not
-function checkCookie(key, value) {
-  let originalvalue = getCookie(key);
-  console.log("in checkcookie original value of " + key + "=" + originalvalue);
-
-  if (originalvalue != "") {
-    setCookie(key, Number(originalvalue) + Number(value), 356);       //if cookie with key present, adding the new value to the old one
-  }
-  else {
-    //if not present, then new cookie being created
-    setCookie(key, value, 365);
-  }
-  console.log("in check cookie" + document.cookie);
-}
-//sets or updates a cookie
-function setCookie(key, value, time) {
-  let d = new Date();
-  d.setTime(d.getTime() + (time * 24 * 60 * 60 * 1000));
-  let expires = "expires=" + d.toGMTString();
-  document.cookie = key + "=" + value + ";" + expires + ";path=/";
-  console.log("in set cookie the cookie set is " + document.cookie);
-}
-// accessing a particular cookie by its key 
-function getCookie(key) {
-  let name = key + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';')
-  for (let i = 0; i < ca.length; i++) {            //searching the cookie with particular key word
-    let char = ca[i];
-    while (char.charAt(0) == ' ') {
-      char = char.substring(1);
-    }
-    if (char.indexOf(name) == 0) {
-      console.log("in getCookie value of" + key + "=" + char.substring(name.length, char.length));
-      return char.substring(name.length, char.length);
-    }
-  }
-  console.log("in get cookie value of " + key + "is null");
-  return "";
-}
-
-//chart entry
-const data1 = { 'debit': Number(getCookie("debit")), 'credit': Number(getCookie("credit")) };
-const ctx = document.getElementById('myChart');
-
-const myChart = new Chart(ctx, {
-  type: 'doughnut',
+const performanceChart = document.getElementById('performanceChart');
+new Chart(performanceChart, {
+  type: 'line',
   data: {
-    labels: Object.keys(data1),
+    labels: labels,
     datasets: [{
-      label: 'amount',
-      data: Object.values(data1),
+      label: 'Monthly Income',
+      data: data,
+      fill: false,
+      borderColor: 'rgba(0, 123, 255, 1)',
+      tension: 0.1
     }]
   },
   options: {
-    backgroundColor: [
-      '#c9302a',
-      '#33a81e',],
-    borderColor: [
-      '#91150c',
-      '#126908',],
-    borderWidth: 1,
-    responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Years'
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Monthly Income ($)'
+        }
+      }
+    }
   }
 });
+
+// Scroll to the performance section
+document.getElementById('performance').scrollIntoView({ behavior: 'smooth' });
