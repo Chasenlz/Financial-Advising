@@ -16,55 +16,63 @@
         </div>
     </div>
     <div class="navbar">
-    <ul>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="performance.html">Performance</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
 
-<div id="home" class="container">
-    <h2>Financial Advisor</h2>
-    <p>Calculate how to reach your financial goals and plan for retirement</p>
+    <div id="home" class="container">
+        <h2>Financial Advisor</h2>
+        <p>Calculate how to reach your financial goals and plan for retirement</p>
 
-    <form id="financialForm">
-        <h3>Your Current Finances</h3>
-        <label for="currentSavings">Current Savings:</label>
-        <input type="number" id="currentSavings" required><br>
+        <form id="financialForm">
+            <h3>Your Current Finances</h3>
+            <label for="currentSavings">Current Savings:</label>
+            <input type="number" id="currentSavings" required><br>
 
-        <label for="monthlyIncome">Monthly Income:</label>
-        <input type="number" id="monthlyIncome" required><br>
+            <label for="monthlyIncome">Monthly Income:</label>
+            <input type="number" id="monthlyIncome" required><br>
 
-        <h3>Your Financial Goals</h3>
-        <label for="retirementSavings">Retirement Savings Goal:</label>
-        <input type="number" id="retirementSavings" required><br>
+            <h3>Your Financial Goals</h3>
+            <label for="retirementSavings">Retirement Savings Goal:</label>
+            <input type="number" id="retirementSavings" required><br>
 
-        <label for="retirementAge">Retirement Age:</label>
-        <input type="number" id="retirementAge" required><br>
+            <label for="retirementAge">Retirement Age:</label>
+            <input type="number" id="retirementAge" required><br>
 
-        <label for="investmentYears">Years until Retirement:</label>
-        <input type="number" id="investmentYears" required><br>
+            <label for="investmentYears">Years until Retirement:</label>
+            <input type="number" id="investmentYears" required><br>
 
-        <h3>Additional Details</h3>
-        <label for="401kPlan">Do you have a 401(k) plan?</label>
-        <input type="checkbox" id="401kPlan"><br>
+            <h3>Additional Details</h3>
+            <label for="401kPlan">Do you have a 401(k) plan?</label>
+            <input type="checkbox" id="401kPlan"><br>
 
-        <label for="currentInvestments">Current Investments:</label>
-        <input type="text" id="currentInvestments"><br>
+            <label for="currentInvestments">Current Investments:</label>
+            <input type="number" id="currentInvestments"><br>
 
-        <label for="secondaryIncome">Secondary Income Generators:</label>
-        <input type="text" id="secondaryIncome"><br>
+            <label for="investmentGrowthRate">Investment Growth Rate:</label>
+            <input type="number" id="investmentGrowthRate"><br>
 
-        <label for="numberOfChildren">Number of Children:</label>
-        <input type="number" id="numberOfChildren"><br>
+            <label for="currentAssets">Current Assets:</label>
+            <input type="number" id="currentAssets"><br>
 
-        <label for="monthlyExpenses">Monthly Expenses:</label>
-        <input type="number" id="monthlyExpenses" required><br>
+            <label for="numberOfChildren">Number of Children:</label>
+            <input type="number" id="numberOfChildren"><br>
 
-        <input type="submit" value="Calculate">
-    </form>
-</div>
+            <label for="monthlyExpenses">Monthly Expenses:</label>
+            <input type="number" id="monthlyExpenses" required><br>
 
-<script src="script.js"></script>
+            <input type="submit" value="Calculate">
+        </form>
+    </div>
+
+    <div id="performance" class="container">
+        <h2>Performance</h2>
+        <canvas id="performanceChart"></canvas>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
