@@ -1,79 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Lazarian Financial Advising</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-  </head>
-  <body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body>
     <div class="header">
-      <img src="logo.png" class="logo">
-      <div class="head-text">
-        <h1>Expanseo</h1><br>
-        <h2>Expense Tracker</h2>
-      </div>
+        <img src="logo.png" class="logo">
+        <div class="head-text">
+            <h1>Lazarian Financial Advising</h1>
+        </div>
     </div>
-    
-    <div class="row">
-      <div class="left container">
-        <div class="balance">
-          <h4>Your Balance</h4>
-          <h1 id="balance">Rs. 0.00</h1>
-        </div>
-  
-        <div class="inc-exp-container">
-          <div>
-            <h4>Income</h4>
-            <p id="show_credit" class="credit">Rs. 0.00</p>
-          </div>
-          <div>
-            <h4>Expense</h4>
-            <p id="show_debit" class="debit">Rs. 0.00</p>
-          </div>
-        </div>
-  
-        <h3>Add new transaction</h3>
-        <form id="form">
-          <div class="form-control">
-            <label for="text">Describe the Transaction</label>
-            <input type="text" id="text" placeholder="Enter text..." />
-          </div>
-          <div class="form-control">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" placeholder="Enter amount..." />
-            <p>Type of transaction</p>
-            <select name="Type of expense" id="exp">
-              <option value="debit">Debit</option>
-              <option value="credit">Credit</option>
-            </select>
-          </div>
-          <input type="submit" value="submit" class="btn">
-         </form>
-        
-      </div>
+    <div class="navbar">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
 
-      <div class="right container">
+<div id="home" class="container">
+    <h2>Financial Advisor</h2>
+    <p>Calculate how to reach your financial goals and plan for retirement</p>
 
-        <div class="graphbox">
-          <canvas id="myChart"></canvas>
-        </div>
-        
-        <h3>History</h3>
-        <ul id="list" class="list">
-          <!-- <li class="minus">
-            Cash <span>-$400</span><button class="delete-btn">x</button>
-          </li> -->
-        </ul>
+    <form id="financialForm">
+        <h3>Your Current Finances</h3>
+        <label for="currentSavings">Current Savings:</label>
+        <input type="number" id="currentSavings" required><br>
 
-      </div>
+        <label for="monthlyIncome">Monthly Income:</label>
+        <input type="number" id="monthlyIncome" required><br>
 
-    </div>
+        <h3>Your Financial Goals</h3>
+        <label for="retirementSavings">Retirement Savings Goal:</label>
+        <input type="number" id="retirementSavings" required><br>
 
-   
-    <script src="script.js"></script>
-  </body>
+        <label for="retirementAge">Retirement Age:</label>
+        <input type="number" id="retirementAge" required><br>
+
+        <label for="investmentYears">Years until Retirement:</label>
+        <input type="number" id="investmentYears" required><br>
+
+        <h3>Additional Details</h3>
+        <label for="401kPlan">Do you have a 401(k) plan?</label>
+        <input type="checkbox" id="401kPlan"><br>
+
+        <label for="currentInvestments">Current Investments:</label>
+        <input type="text" id="currentInvestments"><br>
+
+        <label for="secondaryIncome">Secondary Income Generators:</label>
+        <input type="text" id="secondaryIncome"><br>
+
+        <label for="numberOfChildren">Number of Children:</label>
+        <input type="number" id="numberOfChildren"><br>
+
+        <label for="monthlyExpenses">Monthly Expenses:</label>
+        <input type="number" id="monthlyExpenses" required><br>
+
+        <input type="submit" value="Calculate">
+    </form>
+</div>
+
+<div id="performance" class="container">
+    <h2>Performance</h2>
+    <canvas id="performanceChart"></canvas>
+</div>
+
+<div id="contact" class="container">
+    <h2>Contact</h2>
+    <p>Get in touch with us for personalized financial advice and support.</p>
+    <p>Email: info@lazarianadvising.com</p>
+    <p>Phone: 123-456-7890</p>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
