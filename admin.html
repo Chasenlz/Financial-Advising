@@ -11,30 +11,19 @@
   <div id="admin-section">
     <h2>Admin Section</h2>
     <div id="admin-content"></div>
-    <div class="admin-login">
-      <input type="password" id="admin-password" placeholder="Enter password">
-      <button type="button" onclick="openAdminContent()">Submit</button>
-    </div>
   </div>
 
   <script src="front.js"></script>
   <script>
-    function openAdminContent() {
-      const passwordInput = document.getElementById("admin-password").value;
-      if (passwordInput === "5252624") {
-        fetch('/emails')
-          .then(response => response.json())
-          .then(data => {
-            const adminContent = document.getElementById("admin-content");
-            adminContent.innerHTML = "<h3>Emails:</h3>";
-            data.emails.forEach(email => {
-              adminContent.innerHTML += `<p>${email}</p>`;
-            });
-          });
-      } else {
-        alert("Incorrect password");
-      }
-    }
+    fetch('/emails')
+      .then(response => response.json())
+      .then(data => {
+        const adminContent = document.getElementById("admin-content");
+        adminContent.innerHTML = "<h3>Emails:</h3>";
+        data.emails.forEach(email => {
+          adminContent.innerHTML += `<p>${email}</p>`;
+        });
+      });
   </script>
 </body>
 </html>
