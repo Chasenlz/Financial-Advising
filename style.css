@@ -110,4 +110,28 @@ body {
   .container {
     width: 90%;
   }
+  /* Your existing styles */
+
+#admin-section {
+  display: none;
+  margin-top: 20px;
+}
+
+#admin-section h2 {
+  text-align: center;
+}
+
+.admin-login {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.admin-login input[type="password"] {
+  padding: 5px;
+}
+
+.admin-login button {
+  padding: 5px 10px;
+  margin-left: 10px;
+}
 }
