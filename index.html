@@ -12,7 +12,7 @@
     <div class="navbar">
       <img src="logo.png" alt="Logo" class="logo">
       <div class="user">
-        <button type="button" onclick="openAdminSection()">Admin</button>
+        <button type="button" onclick="openAdminPassword()">Admin</button>
         <button type="button" onclick="openLoginForm()">Explore</button>
         <img class="avatar" src="avatar.jpg">
       </div>
@@ -48,15 +48,6 @@
         </form>
       </div>
     </div>
-
-    <div id="admin-section">
-      <h2>Admin Section</h2>
-      <div id="admin-content"></div>
-      <div class="admin-login">
-        <input type="password" id="admin-password" placeholder="Enter password">
-        <button type="button" onclick="openAdminContent()">Submit</button>
-      </div>
-    </div>
   </div>
 
   <script src="front.js"></script>
@@ -83,22 +74,10 @@
       document.querySelector(".login-link").innerHTML = "Login";
     }
 
-    function openAdminSection() {
-      document.getElementById("admin-section").style.display = "block";
-    }
-
-    function openAdminContent() {
-      const passwordInput = document.getElementById("admin-password").value;
-      if (passwordInput === "5252624") {
-        fetch('/emails')
-          .then(response => response.json())
-          .then(data => {
-            const adminContent = document.getElementById("admin-content");
-            adminContent.innerHTML = "<h3>Emails:</h3>";
-            data.emails.forEach(email => {
-              adminContent.innerHTML += `<p>${email}</p>`;
-            });
-          });
+    function openAdminPassword() {
+      const password = prompt("Enter the password:");
+      if (password === "5252624") {
+        window.location.href = "admin.html";
       } else {
         alert("Incorrect password");
       }
