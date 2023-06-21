@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Page</title>
-  <link rel="stylesheet" href="admin.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
 </head>
 <body>
-  <h1>Registered Emails:</h1>
-  <ul id="email-list"></ul>
+    <h1>Admin Page</h1>
+    <div id="registered-email-container"></div>
 
-  <script src="admin.js"></script>
+    <script>
+        // Retrieve the email from localStorage
+        const registeredEmail = localStorage.getItem("registeredEmail");
+
+        // Display the email on the page
+        const emailContainer = document.getElementById("registered-email-container");
+        emailContainer.textContent = "Registered Email: " + registeredEmail;
+    </script>
 </body>
 </html>
