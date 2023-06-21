@@ -4,26 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Section</title>
-  <link rel="stylesheet" href="front.css">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-  <div id="admin-section">
-    <h2>Admin Section</h2>
-    <div id="admin-content"></div>
-  </div>
+  <h1>Registered Emails:</h1>
+  <ul id="email-list"></ul>
 
-  <script src="front.js"></script>
-  <script>
-    fetch('/emails')
-      .then(response => response.json())
-      .then(data => {
-        const adminContent = document.getElementById("admin-content");
-        adminContent.innerHTML = "<h3>Emails:</h3>";
-        data.emails.forEach(email => {
-          adminContent.innerHTML += `<p>${email}</p>`;
-        });
-      });
-  </script>
+  <script src="admin.js"></script>
 </body>
 </html>
