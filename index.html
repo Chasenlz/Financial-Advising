@@ -1,83 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lemnis Capital | Chase Lazarian Financial Advisor</title>
-  <link rel="stylesheet" href="front.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemnis Capital | Chase Lazarian Financial Advisor</title>
+    <link rel="stylesheet" href="front.css">
 </head>
 <body>
-  <div id="hero">
-    <div class="navbar">
-      <img src="logo.png" alt="Logo" class="logo">
-      <div class="user">
-        <button type="button" onclick="window.location.href = 'home.html'">Explore</button>
-        <button type="button" onclick="openAdminPassword()">Admin</button>
-        <img class="avatar" src="avatar.jpg">
-      </div>
+    <div id="hero">
+        <div class="navbar">
+            <img src="logo.png" alt="Logo" class="logo">
+            <div class="user">
+                <button id="explore-button" type="button" disabled>Explore</button>
+                <button id="admin-button" type="button">Admin</button>
+                <img class="avatar" src="avatar.jpg">
+            </div>
+        </div> 
+
+        <div class="container">
+            <div class="info">
+                <h1>Lazarian Financial Advising</h1>     
+                <p>You are my priority. As a trusted advisor, I always act in your best interest. I operate with a fiduciary duty, ensuring no conflicts of interest. Your goals and concerns shape your financial plan.</p>
+                <p><strong>Empowering You and Your Legacy</strong></p>
+                <p>My mission is to empower you, your family, and our community for a better future. I strive to achieve financial harmony and create a lasting legacy for future generations through investment, retirement, and wealth management solutions.</p>
+                <button class="btnLogin-popup" onclick="openForm()">Login</button>
+            </div>
+        </div>
+
+        <div class="wrapper" id="popup-form">
+            <span class="icon-close" onclick="closeForm()">&#10006;</span>
+
+            <div class="from-box">
+                <h2>Registration</h2>
+                <form class="modal-content" id="popup" onsubmit="register(event)">
+                    <div class="input-box">
+                        <span class="icon">&#9993;</span>
+                        <input id="email" type="email" required>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label><input type="checkbox">I agree to the terms and conditions</label>
+                    </div>
+
+                    <button type="submit" class="btn">Register</button>
+
+                    <div class="login-register">
+                        <p>Already have an account? <a href="#" class="login-link" onclick="showLoginForm()">Login</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>       
+
     </div>
 
-    <div class="container">
-      <div class="info">
-        <h1>Lazarian Financial Advising</h1>     
-        <p>You are my priority. As a trusted advisor, I always act in your best interest. I operate with a fiduciary duty, ensuring no conflicts of interest. Your goals and concerns shape your financial plan.</p>
-        <p><strong>Empowering You and Your Legacy</strong></p>
-        <p>My mission is to empower you, your family, and our community for a better future. I strive to achieve financial harmony and create a lasting legacy for future generations through investment, retirement, and wealth management solutions.</p>
-        <button class="btnLogin-popup" onclick="openForm()">Login</button>
-      </div>
-    </div>
+    <script src="front.js"></script>
+    <script>
+        function openForm() {
+            document.getElementById("popup-form").style.display = "block";
+        }
 
-    <div class="wrapper" id="popup-form">
-      <span class="icon-close" onclick="closeForm()">&#10006;</span>
+        function closeForm() {
+            document.getElementById("popup-form").style.display = "none";
+        }
 
-      <div class="from-box">
-        <h2>Registration</h2>
-        <form action="/register" class="modal-content" id="popup" method="POST">
-          <div class="input-box">
-            <span class="icon">&#9993;</span>
-            <input name="email" type="email" required>
-            <label for="email">Email</label>
-          </div>
+        function showLoginForm() {
+            document.getElementById("popup").setAttribute("onsubmit", "login(event)");
+            document.querySelector(".btn").innerHTML = "Login";
+            document.querySelector(".login-link").setAttribute("onclick", "showRegisterForm()");
+            document.querySelector(".login-link").innerHTML = "Register";
+        }
 
-          <div class="remember-forgot">
-            <label><input type="checkbox" required>I agree to the terms and conditions</label>
-          </div>
+        function showRegisterForm() {
+            document.getElementById("popup").setAttribute("onsubmit", "register(event)");
+            document.querySelector(".btn").innerHTML = "Register";
+            document.querySelector(".login-link").setAttribute("onclick", "showLoginForm()");
+            document.querySelector(".login-link").innerHTML = "Login";
+        }
 
-          <button type="submit" class="btn">Register</button>
+        function register(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            // Store the email in localStorage
+            localStorage.setItem("registeredEmail", email);
+            // Redirect to the home page or perform any other necessary actions
+            window.location.href = "home.html";
+        }
 
-          <div class="login-register">
-            <p>Already have an account? <a href="#" class="login-link" onclick="openLoginForm()">Login</a></p>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script src="front.js"></script>
-  <script>
-    function openLoginForm() {
-      document.getElementById("popup").setAttribute("action", "/login");
-      document.querySelector(".btn").innerHTML = "Login";
-      document.querySelector(".login-link").setAttribute("onclick", "openRegisterForm()");
-      document.querySelector(".login-link").innerHTML = "Register";
-    }
-
-    function openRegisterForm() {
-      document.getElementById("popup").setAttribute("action", "/register");
-      document.querySelector(".btn").innerHTML = "Register";
-      document.querySelector(".login-link").setAttribute("onclick", "openLoginForm()");
-      document.querySelector(".login-link").innerHTML = "Login";
-    }
-
-    function openAdminPassword() {
-      const password = prompt("Enter the password:");
-      if (password === "5252624") {
-        window.location.href = "admin.html";
-      } else {
-        alert("Incorrect password");
-      }
-    }
-  </script>
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            // Perform login logic here
+            console.log("Login:", email);
+            // Redirect to the home page or perform any other necessary actions
+            window.location.href = "home.html";
+        }
+    </script>
 </body>
 </html>
