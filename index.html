@@ -1,96 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lemnis Capital | Chase Lazarian Financial Advisor</title>
-    <link rel="stylesheet" href="front.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lemnis Capital | Chase Lazarian Financial Advisor</title>
+  <link rel="stylesheet" href="front.css">
 </head>
 <body>
-    <div id="hero">
-        <div class="navbar">
-            <img src="logo.png" alt="Logo" class="logo">
-            <div class="user">
-                <button type="button">Explore</button>
-                <img class="avatar" src="avatar.jpg">
-            </div>
-        </div> 
-
-        <div class="container">
-            <div class="info">
-                <h1>Lazarian Financial Advising</h1>     
-                <p>You are my priority. As a trusted advisor, I always act in your best interest. I operate with a fiduciary duty, ensuring no conflicts of interest. Your goals and concerns shape your financial plan.</p>
-                <p><strong>Empowering You and Your Legacy</strong></p>
-                <p>My mission is to empower you, your family, and our community for a better future. I strive to achieve financial harmony and create a lasting legacy for future generations through investment, retirement, and wealth management solutions.</p>
-                <button class="btnLogin-popup" onclick="openForm()">Login</button>
-            </div>
-        </div>
-
-        <div class="wrapper" id="popup-form">
-            <span class="icon-close" onclick="closeForm()">&#10006;</span>
-
-            <div class="from-box">
-                <h2>Login</h2>
-                <form action="#" class="modal-content" id="popup" onsubmit="login(event)">
-                    <div class="input-box">
-                        <span class="icon">&#9786;</span>
-                        <input id="username" type="text" required>
-                        <label for="username">Username</label>
-                    </div>
-
-                    <button type="submit" class="btn">Login</button>
-
-                    <div class="login-register">
-                        <p>Don't have an account? <a href="#" class="login-link" onclick="showRegisterForm()">Register</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>       
-
+  <div id="hero">
+    <div class="navbar">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div class="user">
+        <button type="button" onclick="openAdminSection()">Admin</button>
+        <button type="button" onclick="openLoginForm()">Explore</button>
+        <img class="avatar" src="avatar.jpg">
+      </div>
     </div>
 
-    <script src="front.js"></script>
-    <script>
-        function openForm() {
-            document.getElementById("popup-form").style.display = "block";
-        }
+    <div class="container">
+      <div class="info">
+        <h1>Lazarian Financial Advising</h1>
+        <p>You are my priority. As a trusted advisor, I always act in your best interest. I operate with a fiduciary duty, ensuring no conflicts of interest. Your goals and concerns shape your financial plan.</p>
+        <p><strong>Empowering You and Your Legacy</strong></p>
+        <p>My mission is to empower you, your family, and our community for a better future. I strive to achieve financial harmony and create a lasting legacy for future generations through investment, retirement, and wealth management solutions.</p>
+        <button class="btnLogin-popup" onclick="openForm()">Register</button>
+      </div>
+    </div>
 
-        function closeForm() {
-            document.getElementById("popup-form").style.display = "none";
-        }
+    <div class="wrapper" id="popup-form">
+      <span class="icon-close" onclick="closeForm()">&#10006;</span>
 
-        function showRegisterForm() {
-            document.getElementById("popup").setAttribute("onsubmit", "register(event)");
-            document.querySelector(".btn").innerHTML = "Register";
-            document.querySelector(".login-link").setAttribute("onclick", "showLoginForm()");
-            document.querySelector(".login-link").innerHTML = "Login";
-        }
+      <div class="from-box">
+        <h2>Registration</h2>
+        <form action="/register" class="modal-content" id="popup" method="POST">
+          <div class="input-box">
+            <span class="icon">&#9993;</span>
+            <input id="email" type="email" name="email" required>
+            <label for="email">Email</label>
+          </div>
 
-        function showLoginForm() {
-            document.getElementById("popup").setAttribute("onsubmit", "login(event)");
-            document.querySelector(".btn").innerHTML = "Login";
-            document.querySelector(".login-link").setAttribute("onclick", "showRegisterForm()");
-            document.querySelector(".login-link").innerHTML = "Register";
-        }
+          <button type="submit" class="btn">Register</button>
 
-        function register(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            // Perform registration logic here
-            console.log("Register:", username);
-            // Redirect to the home page or perform any other necessary actions
-            window.location.href = "index.html";
-        }
+          <div class="login-register">
+            <p>Already have an account? <a href="#" class="login-link" onclick="openLoginForm()">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
 
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            // Perform login logic here
-            console.log("Login:", username);
-            // Redirect to the home page or perform any other necessary actions
-            window.location.href = "index.html";
-        }
-    </script>
+    <div id="admin-section">
+      <h2>Admin Section</h2>
+      <div id="admin-content"></div>
+      <div class="admin-login">
+        <input type="password" id="admin-password" placeholder="Enter password">
+        <button type="button" onclick="openAdminContent()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="front.js"></script>
+  <script>
+    function openForm() {
+      document.getElementById("popup-form").style.display = "block";
+    }
+
+    function closeForm() {
+      document.getElementById("popup-form").style.display = "none";
+    }
+
+    function openLoginForm() {
+      document.getElementById("popup").setAttribute("action", "/login");
+      document.querySelector(".btn").innerHTML = "Login";
+      document.querySelector(".login-link").setAttribute("onclick", "openRegisterForm()");
+      document.querySelector(".login-link").innerHTML = "Register";
+    }
+
+    function openRegisterForm() {
+      document.getElementById("popup").setAttribute("action", "/register");
+      document.querySelector(".btn").innerHTML = "Register";
+      document.querySelector(".login-link").setAttribute("onclick", "openLoginForm()");
+      document.querySelector(".login-link").innerHTML = "Login";
+    }
+
+    function openAdminSection() {
+      document.getElementById("admin-section").style.display = "block";
+    }
+
+    function openAdminContent() {
+      const passwordInput = document.getElementById("admin-password").value;
+      if (passwordInput === "5252624") {
+        fetch('/emails')
+          .then(response => response.json())
+          .then(data => {
+            const adminContent = document.getElementById("admin-content");
+            adminContent.innerHTML = "<h3>Emails:</h3>";
+            data.emails.forEach(email => {
+              adminContent.innerHTML += `<p>${email}</p>`;
+            });
+          });
+      } else {
+        alert("Incorrect password");
+      }
+    }
+  </script>
 </body>
 </html>
