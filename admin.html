@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Section</title>
+  <link rel="stylesheet" href="front.css">
+</head>
+<body>
+  <div id="admin-section">
+    <h2>Admin Section</h2>
+    <div id="admin-content"></div>
+    <div class="admin-login">
+      <input type="password" id="admin-password" placeholder="Enter password">
+      <button type="button" onclick="openAdminContent()">Submit</button>
+    </div>
+  </div>
+
+  <script src="front.js"></script>
+  <script>
+    function openAdminContent() {
+      const passwordInput = document.getElementById("admin-password").value;
+      if (passwordInput === "5252624") {
+        fetch('/emails')
+          .then(response => response.json())
+          .then(data => {
+            const adminContent = document.getElementById("admin-content");
+            adminContent.innerHTML = "<h3>Emails:</h3>";
+            data.emails.forEach(email => {
+              adminContent.innerHTML += `<p>${email}</p>`;
+            });
+          });
+      } else {
+        alert("Incorrect password");
+      }
+    }
+  </script>
+</body>
+</html>
