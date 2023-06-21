@@ -32,41 +32,74 @@ document.getElementById('financialForm').addEventListener('submit', function(eve
   }
 
   const performanceChart = document.getElementById('performanceChart');
-  new Chart(performanceChart, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Monthly Income',
-        data: data,
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Current Savings Rate',
+        data: generateSavingsRateData(currentSavings, monthlyIncome, investmentYears),
         fill: false,
         borderColor: 'rgba(0, 123, 255, 1)',
         tension: 0.1
-      }]
-    },
-    options: {
-      scales: {
-        x: {
+      },
+      {
+        label: 'Needed Savings Rate',
+        data: generateSavingsRateData(retirementSavings, retirementMonthlyIncome, retirementAge - investmentYears),
+        fill: false,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        tension: 0.1
+      }
+    ]
+  };
+
+  const chartOptions = {
+    scales: {
+      x: {
+        display: true,
+        title: {
           display: true,
-          title: {
-            display: true,
-            text: 'Years'
-          }
-        },
-        y: {
+          text: 'Years'
+        }
+      },
+      y: {
+        display: true,
+        title: {
           display: true,
-          title: {
-            display: true,
-            text: 'Monthly Income ($)'
-          }
+          text: 'Monthly Savings Rate ($)'
         }
       }
     }
-  });
+  };
+
+  if (window.performanceChartInstance) {
+    // Update existing chart
+    window.performanceChartInstance.data = chartData;
+    window.performanceChartInstance.options = chartOptions;
+    window.performanceChartInstance.update();
+  } else {
+    // Create new chart
+    window.performanceChartInstance = new Chart(performanceChart, {
+      type: 'line',
+      data: chartData,
+      options: chartOptions
+    });
+  }
 
   // Scroll to the performance section
   document.getElementById('performance').scrollIntoView({ behavior: 'smooth' });
 });
+
+function generateSavingsRateData(totalSavings, monthlyIncome, numYears) {
+  const savingsRateData = [];
+  const monthlySavingsRate = totalSavings / (numYears * 12);
+
+  for (let i = 0; i <= numYears; i++) {
+    savingsRateData.push(monthlySavingsRate);
+  }
+
+  savingsRateData.push(monthlyIncome);
+  return savingsRateData;
+}
 
 function calculateAverageChildCostPerYear(numberOfChildren) {
   let totalChildCost = 0;
